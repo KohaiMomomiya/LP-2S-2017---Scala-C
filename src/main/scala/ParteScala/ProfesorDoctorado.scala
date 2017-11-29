@@ -1,5 +1,7 @@
 package ParteScala
 
+import PackArbolDosTres._
+
 class ProfesorDoctorado(nombre: String) extends Profesor(nombre) {
   this.ocupacion += " (Ph.D)"
 

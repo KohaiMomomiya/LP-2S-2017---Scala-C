@@ -1,82 +1,74 @@
 package PackArbolDosTres
 
-class NodoDosTres[T](
-                      private[PackArbolDosTres] var raizIzquierda: Option[T]
-                    ) extends Balanceable[T]{
-  private[PackArbolDosTres] var raizDerecha: Option[T] = None
 
-  private[PackArbolDosTres] var subramaIzquierda: Option[NodoDosTres[T]] = None
-  private[PackArbolDosTres] var subramaCentro: Option[NodoDosTres[T]] = None
-  private[PackArbolDosTres] var subramaDerecha: Option[NodoDosTres[T]] = None
+class NodoDosTres[-A](
+                      private[PackArbolDosTres] var raizIzquierda: Option[A] = None,
+                      private[PackArbolDosTres] var raizDerecha: Option[A] = None,
 
+                      private[PackArbolDosTres] var subramaIzquierda: Option[NodoDosTres[A]] = None,
+                      private[PackArbolDosTres] var subramaCentro: Option[NodoDosTres[A]] = None,
+                      private[PackArbolDosTres] var subramaDerecha: Option[NodoDosTres[A]] = None,
+                     ) extends Balanceable[A]{
 
-  def this(raizIzquierda: T){
-    this(Option[T](raizIzquierda))
-  }
+  type B >: A
 
-  def this(raizIzquierda: T, raizDerecha: Option[T] = None,
-            subRamaIzq: Option[NodoDosTres[T]] = None,
-            subramaCentro: Option[NodoDosTres[T]] = None) {
-    this(raizIzquierda)
-    this.raizDerecha = raizDerecha
-
-    this.subramaIzquierda = subRamaIzq
-    this.subramaCentro = subramaCentro
-  }
 
   // Getters de valores en raíz:
-  def RaizIzquierda : Option[T] = this.raizIzquierda
+  def RaizIzquierda : Option[B] = this.raizIzquierda.asInstanceOf[Option[B]]
 
-  def RaizDerecha : Option[T] = this.raizDerecha    // Puede ser None o contener el valor.
+  def RaizDerecha : Option[B] = this.raizDerecha.asInstanceOf[Option[B]]
 
-  // Getters de ramas del nodo (en contenedores Option[T]):
-  def SubramaIzquierda : Option[NodoDosTres[T]] = this.subramaIzquierda
+  // Getters de ramas del nodo (en contenedores Option[A]):
+  def SubramaIzquierda : Option[NodoDosTres[B]] =
+    this.subramaIzquierda.asInstanceOf[Option[NodoDosTres[B]]]
 
-  def SubramaCentro : Option[NodoDosTres[T]] = this.subramaCentro
+  def SubramaCentro : Option[NodoDosTres[B]] =
+    this.subramaCentro.asInstanceOf[Option[NodoDosTres[B]]]
 
-  def SubramaDerecha : Option[NodoDosTres[T]] = this.subramaDerecha
+  def SubramaDerecha : Option[NodoDosTres[B]] =
+    this.subramaDerecha.asInstanceOf[Option[NodoDosTres[B]]]
 
   // Setters de valores en raíz:
-  private[PackArbolDosTres] def RaizIzquierda_(nuevaRaizIzq: T): Unit = {
-    RaizIzquierda_(Option[T](nuevaRaizIzq))
+  private[PackArbolDosTres] def RaizIzquierda_(nuevaRaizIzq: A): Unit = {
+    RaizIzquierda_(nuevaRaizIzq)
   }
 
-  private[PackArbolDosTres] def RaizIzquierda_(nuevaRaizIzq: Option[T]): Unit = {
+  private[PackArbolDosTres] def RaizIzquierda_(nuevaRaizIzq: Option[A]): Unit = {
     this.raizIzquierda = nuevaRaizIzq
   }
 
-  private[PackArbolDosTres] def RaizDerecha_(nuevaRaizDer: T): Unit = {
-    RaizDerecha_(Option[T](nuevaRaizDer))
+  private[PackArbolDosTres] def RaizDerecha_(nuevaRaizDer: A): Unit = {
+    RaizDerecha_(nuevaRaizDer)
   }
 
-  private[PackArbolDosTres] def RaizDerecha_(nuevaRaizDer: Option[T]): Unit = {
+  private[PackArbolDosTres] def RaizDerecha_(nuevaRaizDer: Option[A]): Unit = {
     this.raizDerecha = nuevaRaizDer
   }
 
 
   // Setters de ramas del nodo:
-  private def SubRamaIzquierda_(nuevaSubIzq: NodoDosTres[T]): Unit = {
-    SubRamaIzquierda_(Option[NodoDosTres[T]](nuevaSubIzq))
+  private def SubramaIzquierda_(nuevaSubIzq: NodoDosTres[B]): Unit = {
+    SubramaIzquierda_(Option[NodoDosTres[B]](nuevaSubIzq))
   }
 
-  private def SubRamaIzquierda_(nuevaSubIzq: Option[NodoDosTres[T]]): Unit = {
-    subramaIzquierda = nuevaSubIzq
+  private def SubramaIzquierda_(nuevaSubIzq: Option[NodoDosTres[B]]): Unit = {
+    subramaIzquierda = nuevaSubIzq.asInstanceOf[Option[NodoDosTres[A]]]
   }
 
-  private def SubRamaCentro_(nuevaSubCentro: NodoDosTres[T]): Unit = {
-    SubRamaCentro_(Option[NodoDosTres[T]](nuevaSubCentro))
+  private def SubramaCentro_(nuevaSubCentro: NodoDosTres[B]): Unit = {
+    SubramaCentro_(Option[NodoDosTres[B]](nuevaSubCentro))
   }
 
-  private def SubRamaCentro_(nuevaSubCentro: Option[NodoDosTres[T]]): Unit = {
-    subramaCentro = nuevaSubCentro
+  private def SubramaCentro_(nuevaSubCentro: Option[NodoDosTres[B]]): Unit = {
+    subramaCentro = nuevaSubCentro.asInstanceOf[Option[NodoDosTres[A]]]
   }
 
-  private def SubRamaDerecha_(nuevaSubDer: NodoDosTres[T]): Unit = {
-    SubRamaDerecha_(Option[NodoDosTres[T]](nuevaSubDer))
+  private def SubramaDerecha_(nuevaSubDerecha: NodoDosTres[B]): Unit = {
+    SubramaDerecha_(Option[NodoDosTres[B]](nuevaSubDerecha))
   }
 
-  private def SubRamaDerecha_(nuevaSubDer: Option[NodoDosTres[T]]): Unit = {
-    subramaDerecha = nuevaSubDer
+  private def SubramaDerecha_(nuevaSubDerecha: Option[NodoDosTres[B]]): Unit = {
+    subramaCentro = nuevaSubDerecha.asInstanceOf[Option[NodoDosTres[A]]]
   }
 
 
@@ -130,8 +122,8 @@ class NodoDosTres[T](
     }
   }
 
-  private[PackArbolDosTres] def cambiarMaximo(): Option[T] = {
-    var maximo: Option[T] = None
+  private[PackArbolDosTres] def cambiarMaximo(): Option[B] = {
+    var maximo: Option[B] = None
 
     if (!esHoja){
       if (raizDerecha.isDefined) {
@@ -141,10 +133,10 @@ class NodoDosTres[T](
       }
     } else {
       if (raizDerecha.isDefined) {
-        maximo = raizDerecha
+        maximo = raizDerecha.asInstanceOf[Option[B]]
         raizDerecha = None
       } else {
-        maximo = raizIzquierda
+        maximo = raizIzquierda.asInstanceOf[Option[B]]
         raizIzquierda = None
       }
     }
@@ -156,16 +148,16 @@ class NodoDosTres[T](
     maximo
   }
 
-  private[PackArbolDosTres] def cambiarMinimo(): Option[T] = {
-    var minimo: Option[T] = None
+  private[PackArbolDosTres] def cambiarMinimo(): Option[B] = {
+    var minimo: Option[B] = None
 
     if (!esHoja) {
       minimo = subramaIzquierda.get.cambiarMinimo()
     } else {
-      minimo = raizIzquierda
+      minimo = raizIzquierda.asInstanceOf[Option[B]]
 
       if (raizDerecha != null) {
-        raizIzquierda = raizDerecha
+        raizIzquierda = raizDerecha.asInstanceOf[Option[A]]
         raizDerecha = None
       } else {
         raizIzquierda = None
